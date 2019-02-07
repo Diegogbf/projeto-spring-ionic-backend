@@ -11,7 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 public class SmtpEmailService extends AbstractEmailService{
 
-	private static final Logger LOG = LoggerFactory.getLogger(MockEmailService.class); 
+	private static final Logger LOG = LoggerFactory.getLogger(SmtpEmailService.class); 
 	
 	@Autowired
 	private MailSender mailSender;

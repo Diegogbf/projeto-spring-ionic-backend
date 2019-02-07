@@ -27,7 +27,7 @@ public abstract class AbstractEmailService implements EmailService {
 	private String sender;
 	
 	@Override
-	public void sendOrderConfirmation(Pedido obj) {
+	public void sendOrderConfirmationEmail(Pedido obj) {
 		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(obj);
 		sendEmail(sm);
 	}
@@ -51,14 +51,14 @@ public abstract class AbstractEmailService implements EmailService {
 	@Override
 	public void sendOrderConfirmationHtmlEmail(Pedido obj){
 		try {
-			MimeMessage sm = prepareSimpleMimeMessageFromPedido(obj);
-			sendHtmlEmail(sm);
+			MimeMessage mm = prepareSimpleMimeMessageFromPedido(obj);
+			sendHtmlEmail(mm);
 		} catch (MessagingException e) {
-			sendOrderConfirmation(obj);
+			sendOrderConfirmationEmail(obj);
 		}
 	}
 
-	private MimeMessage prepareSimpleMimeMessageFromPedido(Pedido obj) throws MessagingException {
+	protected MimeMessage prepareSimpleMimeMessageFromPedido(Pedido obj) throws MessagingException {
 		MimeMessage mm = javaMailSender.createMimeMessage();
 		MimeMessageHelper mmh = new MimeMessageHelper(mm,true);
 		mmh.setTo(obj.getCliente().getEmail());
